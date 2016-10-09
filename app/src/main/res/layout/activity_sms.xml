@@ -15,6 +15,26 @@
         android:hint="请输入号码"
         android:text="15012722095"/>
 
+    <!--<RadioGroup-->
+        <!--android:id="@+id/radioGroup"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/sameButton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="相同号码"-->
+            <!--android:checked="true"/>-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/differentButton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="不同号码"/>-->
+    <!--</RadioGroup>-->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,14 +61,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/smsButton"
-        android:text="生成信息"/>
+        android:text="生成相同号码信息"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/smsDiffrentButton"
+        android:text="生成不同号码信息"/>
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="148dp"
-        android:layout_height="140dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/progressBar"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:visibility="gone" />
     <TextView
         android:layout_width="wrap_content"
