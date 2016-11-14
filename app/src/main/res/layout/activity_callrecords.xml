@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请输入号码"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextNumber"
+        android:inputType="number"
+        android:hint="15012722095"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加条数"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextCount"
+        android:inputType="number"
+        android:hint="10"/>
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:textOff="不同号码"
+        android:textOn="相同号码"
+        android:id="@+id/togButton"/>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/radioGroup">
+        <RadioButton
+            android:id="@+id/receivedCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已接电话"
+            />
+        <RadioButton
+            android:id="@+id/missedCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop ="3dip"
+            android:text="未接电话"
+            />
+        <RadioButton
+            android:id="@+id/dialingCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop ="3dip"
+            android:text="已拨电话"
+            />
+        <RadioButton
+            android:id="@+id/randomCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop ="3dip"
+            android:checked="true"
+            android:text="随机类型"
+            />
+    </RadioGroup>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonEnd"
+        android:text="生成通话记录"/>
+
+</LinearLayout>
