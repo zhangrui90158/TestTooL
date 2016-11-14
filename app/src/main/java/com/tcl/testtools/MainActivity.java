@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.tcl.testtools.Record.CallRecords;
 import com.tcl.testtools.phone.PhoneActivity;
 import com.tcl.testtools.sms.SmsActivity;
 
 public class MainActivity extends Activity implements View.OnClickListener {
-    private Button phoneButton, smsButton;
+    private Button phoneButton, smsButton,recordsButton;
     private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void initView() {
         phoneButton = (Button) findViewById(R.id.phoneButton);
         smsButton = (Button) findViewById(R.id.smsButton);
+        recordsButton = (Button) findViewById(R.id.phoneCall);
+        recordsButton.setOnClickListener(this);
         phoneButton.setOnClickListener(this);
         smsButton.setOnClickListener(this);
     }
@@ -36,6 +41,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.smsButton:
                 intent = new Intent(MainActivity.this,SmsActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.phoneCall:
+                intent = new Intent(MainActivity.this, CallRecords.class);
+                startActivity(intent);
+                break;
+            case R.id.MMS:
+                Toast.makeText(MainActivity.this,"开发中...........",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

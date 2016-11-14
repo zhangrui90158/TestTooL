@@ -52,7 +52,6 @@ public class SmsActivity extends Activity implements View.OnClickListener{
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         toastText = (TextView) findViewById(R.id.toastText);
         differentButton = (Button) findViewById(R.id.smsDiffrentButton);
-        smsText = getText.getText().toString();
         smsCount  = getCount.getText().toString();
         smsButton.setOnClickListener(this);
         differentButton.setOnClickListener(this);
@@ -91,8 +90,9 @@ public class SmsActivity extends Activity implements View.OnClickListener{
             }
             resolver = getContentResolver();
             values = new ContentValues();
+            smsNumber = getNumber.getText().toString();
+            smsText = getText.getText().toString();
             for (int i = 0; i < Integer.parseInt(smsCount); i++) {
-                smsNumber = getNumber.getText().toString();
                 values.put(Telephony.Sms.DATE, System.currentTimeMillis());
                 long dateSent = System.currentTimeMillis() - 5000;
                 values.put(Telephony.Sms.DATE_SENT, dateSent);
@@ -172,6 +172,7 @@ public class SmsActivity extends Activity implements View.OnClickListener{
             resolver = getContentResolver();
             values = new ContentValues();
             Random random = new Random();
+            smsText = getText.getText().toString();
             for (int i = 0; i < Integer.parseInt(smsCount); i++) {
                 smsNumber = "1501272"+ String.valueOf(random.nextInt(10000));
                 values.put(Telephony.Sms.DATE, System.currentTimeMillis());

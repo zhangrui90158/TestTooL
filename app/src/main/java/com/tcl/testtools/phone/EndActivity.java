@@ -59,7 +59,7 @@ public class EndActivity extends Activity {
                 //随机获取名字跟号码
                 String name = strName[random.nextInt(strName.length)] + strName[random.nextInt(strName.length)] +strName[random.nextInt(strName.length)];
                 //随机生成号码
-                String phoneNumber = Number + String.valueOf(random.nextInt(10000));
+                String phoneNumber = String.valueOf(Long.valueOf(Number)+random.nextInt(10000));
                 //向联系人中插入数据
                 //初始化cr、values
                 cr = getContentResolver();

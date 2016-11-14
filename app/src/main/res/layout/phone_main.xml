@@ -22,12 +22,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="输入联系人号码前面7位数，如下："/>
+        android:text="输入联系人号码"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/nuberEdit"
-        android:text="1501272"
+        android:text="15012722095"
         android:inputType="number"/>
 
     <TextView
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#ff0000"
-            android:text="备注：联系人名称自动生成，号码尾数4位自动生成，邮箱固定为输入邮箱"/>
+            android:text="备注：联系人名称自动生成，号码自动生成，邮箱固定为输入邮箱"/>
     </RelativeLayout>
 
 </LinearLayout>

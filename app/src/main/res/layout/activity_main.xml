@@ -25,6 +25,23 @@
             android:id="@+id/smsButton"/>
         </TableRow>
 
+        <TableRow>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:text="生成通话记录"
+                android:layout_weight="1"
+                android:id="@+id/phoneCall"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:text="生成彩信"
+                android:layout_column="16"
+                android:layout_weight="1"
+                android:id="@+id/MMS"/>
+
+        </TableRow>
+
     </TableLayout>
 
 
