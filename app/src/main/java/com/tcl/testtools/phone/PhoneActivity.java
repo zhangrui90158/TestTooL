@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.tcl.testtools.R;
 
@@ -22,6 +23,7 @@ public class PhoneActivity extends AppCompatActivity implements View.OnClickList
     private EditText editText,numberEdit,emailEdit;
     private Intent intent;
     private Bundle bundle;
+    private String phoneCount,phoneNumber,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +46,26 @@ public class PhoneActivity extends AppCompatActivity implements View.OnClickList
                 //用intent在ACTIVITY之间传输参数
                 intent = new Intent(PhoneActivity.this,EndActivity.class);
                 //获取输入的数字
-                String number = editText.getText().toString();
-                String phoneNumber = numberEdit.getText().toString();
-                String email = emailEdit.getText().toString();
+                if(editText.getText().toString().isEmpty()){
+                    Toast.makeText(PhoneActivity.this,"请输入生成条数",Toast.LENGTH_SHORT).show();
+                    break;
+                }else {
+                    phoneCount = editText.getText().toString();
+                }
+                if(numberEdit.getText().toString().isEmpty()){
+                    Toast.makeText(PhoneActivity.this,"请输入电话号码",Toast.LENGTH_SHORT).show();
+                    break;
+                }else {
+                    phoneNumber = numberEdit.getText().toString();
+                }
+                if(emailEdit.getText().toString().isEmpty()){
+                    Toast.makeText(PhoneActivity.this,"请输入邮箱",Toast.LENGTH_SHORT).show();
+                    break;
+                }else {
+                    email = emailEdit.getText().toString();
+                }
                 bundle = new Bundle();
-                bundle.putString("number",number);
+                bundle.putString("number",phoneCount);
                 bundle.putString("phoneNumber",phoneNumber);
                 bundle.putString("email",email);
                 intent.putExtras(bundle);

@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#ff0000"
-            android:text="备注：联系人名称自动生成，号码自动生成，邮箱固定为输入邮箱"/>
+            android:text="备注：联系人名称自动生成，号码后4位数自动生成，邮箱固定为输入邮箱"/>
     </RelativeLayout>
 
 </LinearLayout>

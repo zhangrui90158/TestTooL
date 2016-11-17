@@ -40,7 +40,9 @@ public class CallRecords extends AppCompatActivity implements View.OnClickListen
     private RadioButton rd;
     private Random random;
     private ToggleButton togButton;
-    private boolean same =true;
+    private boolean same;
+    private ContentValues cv;
+    private ContentResolver cr;
 
 
     @Override
@@ -90,82 +92,39 @@ public class CallRecords extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    private void insertCalls() {
-        if(same){
-            int j, ii;
-            j = random.nextInt(6000) + 1;
-            ii = random.nextInt(2);
-            ContentValues cv = new ContentValues();
-            ContentResolver cr = getContentResolver();
-            phoneCount = count.getText().toString();
-            phoneNumber = number.getText().toString();
-            for (int i = 0; i < Integer.parseInt(phoneCount); i++) {
-                cv.put("number", phoneNumber);
-                cv.put("type", condition);
-                cv.put("date", Long.valueOf(System.currentTimeMillis()));
-                cv.put("duration", j);
-                cv.put("new", ii);
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(CallRecords.this,"未获取通话记录权限",Toast.LENGTH_LONG).show();
-                }else {
-                    cr.insert(CallLog.Calls.CONTENT_URI, cv);
-                }
-            }
-        }else {
-            int j, ii;
-            j = random.nextInt(6000) + 1;
-            ii = random.nextInt(2);
-            ContentValues cv = new ContentValues();
-            ContentResolver cr = getContentResolver();
-            phoneCount = count.getText().toString();
-            for (int i = 0; i < Integer.parseInt(phoneCount); i++) {
-                String phoneNumber = String.valueOf(Long.valueOf(number.getText().toString())+random.nextInt(10000));
-                cv.put("number", phoneNumber);
-                cv.put("type", condition);
-                cv.put("date", Long.valueOf(System.currentTimeMillis()));
-                cv.put("duration", j);
-                cv.put("new", ii);
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(CallRecords.this,"未获取通话记录权限",Toast.LENGTH_LONG).show();
-                }else {
-                    cr.insert(CallLog.Calls.CONTENT_URI, cv);
-                }
-            }
+    @TargetApi(Build.VERSION_CODES.M)
+    private void checkPermisson() {
+        if (checkSelfPermission(Manifest.permission.WRITE_CALL_LOG) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(CallRecords.this, "已获取通话记录权限", Toast.LENGTH_LONG).show();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.WRITE_CALL_LOG}, PERMISSON_CODE);
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    private void checkPermisson(){
-        if(checkSelfPermission(Manifest.permission.WRITE_CALL_LOG)== PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(CallRecords.this,"已获取通话记录权限",Toast.LENGTH_LONG).show();
-        }else {
-            requestPermissions(new String[]{Manifest.permission.WRITE_CALL_LOG},PERMISSON_CODE);
-        }
-    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(CallRecords.this,"已获取通话记录权限",Toast.LENGTH_LONG).show();
-        }else {
-            Toast.makeText(CallRecords.this,"已拒绝通话记录权限",Toast.LENGTH_LONG).show();
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(CallRecords.this, "已获取通话记录权限", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(CallRecords.this, "已拒绝通话记录权限", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()){
+        switch (buttonView.getId()) {
             case R.id.togButton:
-                if(buttonView.isChecked()){
+                if (buttonView.isChecked()) {
                     same = true;
-                }else {
+                } else {
                     same = false;
                 }
         }
     }
 
 
-    class MyAsyncTask extends AsyncTask<Void,Void,Void>{
+    class MyAsyncTask extends AsyncTask<Void, Void, Void> {
 
 
         @Override
@@ -177,7 +136,7 @@ public class CallRecords extends AppCompatActivity implements View.OnClickListen
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog =  new ProgressDialog(CallRecords.this);
+            progressDialog = new ProgressDialog(CallRecords.this);
             progressDialog.setMessage("记录生成中请不要退出........");
             progressDialog.setCancelable(true);
             progressDialog.show();
@@ -187,8 +146,71 @@ public class CallRecords extends AppCompatActivity implements View.OnClickListen
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             progressDialog.dismiss();
-            Toast.makeText(CallRecords.this,"已生成完成",Toast.LENGTH_SHORT).show();
+            Toast.makeText(CallRecords.this, "已生成完成", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void insertCalls() {
+            if(same){
+                if (count.getText().toString().isEmpty()) {
+                    Toast.makeText(CallRecords.this, "请输入记录条数", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(number.getText().toString().isEmpty()){
+                    Toast.makeText(CallRecords.this, "请输入电话号码", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                int j, ii;
+                j = random.nextInt(6000) + 1;
+                ii = random.nextInt(2);
+                ContentValues cv = new ContentValues();
+                ContentResolver cr = getContentResolver();
+                phoneCount = count.getText().toString();
+                phoneNumber =number.getText().toString();
+                for (int i = 0; i < Integer.parseInt(phoneCount); i++) {
+                    cv.put("number", phoneNumber);
+                    cv.put("type", condition);
+                    cv.put("date", Long.valueOf(System.currentTimeMillis()));
+                    cv.put("duration", j);
+                    cv.put("new", ii);
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(CallRecords.this, "未获取通话记录权限", Toast.LENGTH_LONG).show();
+                    } else {
+                        cr.insert(CallLog.Calls.CONTENT_URI, cv);
+                    }
+                }
+
+            }else {
+                if (count.getText().toString().isEmpty()) {
+                    Toast.makeText(CallRecords.this, "请输入记录条数", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(number.getText().toString().isEmpty()){
+                    Toast.makeText(CallRecords.this, "请输入电话号码", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                int j, ii;
+                j = random.nextInt(6000) + 1;
+                ii = random.nextInt(2);
+                ContentValues cv = new ContentValues();
+                ContentResolver cr = getContentResolver();
+                phoneCount = count.getText().toString();
+                phoneNumber = number.getText().toString();
+                for (int i = 0; i < Integer.parseInt(phoneCount); i++) {
+                    String phoneNumber = String.valueOf(Long.valueOf(number.getText().toString())+random.nextInt(10000));
+                    cv.put("number", phoneNumber);
+                    cv.put("type", condition);
+                    cv.put("date", Long.valueOf(System.currentTimeMillis()));
+                    cv.put("duration", j);
+                    cv.put("new", ii);
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(CallRecords.this, "未获取通话记录权限", Toast.LENGTH_LONG).show();
+                    } else {
+                        cr.insert(CallLog.Calls.CONTENT_URI, cv);
+                    }
+                }
+            }
+
+
+    }
 }
